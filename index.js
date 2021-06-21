@@ -1,25 +1,73 @@
 const express = require('express')
-var bodyParser = require('body-parser')
  
  
 const app = express()
-
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }))
- 
-// parse application/json
-app.use(bodyParser.json())
+app.set('view engine', 'ejs');
 const port =process.env.PORT || 3000
 var collection;
+
+
+function timeConverter(t) {     
+  var a = new Date(t);
+  var today = new Date();
+  var yesterday = new Date(Date.now() - 86400000);
+  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  var year = a.getFullYear();
+  var month = months[a.getMonth()];
+  var date = a.getDate();
+  var hour = a.getHours();
+  var min = a.getMinutes();
+  var sec = a.getSeconds();
+  if (a.setHours(0,0,0,0) == today.setHours(0,0,0,0))
+      return 'today, ' + hour + ':' + min + ':' + sec;
+  else if (a.setHours(0,0,0,0) == yesterday.setHours(0,0,0,0))
+      return 'yesterday, ' + hour + ':' + min + ':' + sec;
+  else if (year == today.getFullYear())
+      return date + ' ' + month + ', ' + hour + ':' + min + ':' + sec;
+  else
+      return date + ' ' + month + ' ' + year + ', ' + hour + ':' + min + ':' + sec;
+}
+
 app.get('/', (req, res) => {
-    var data = "";
+    var htmlData = "";
     if(client.isConnected())
     {
-        data+="Connected to db!<br>"
+        collection.findOne(
+            {},
+            { sort: { _id: -1 } },
+            (err, data) => {
+                var pageData = data;
+                pageData.timestamp = timeConverter(data.timestamp);
+                res.render("index",pageData);
+               console.log(data);
+            },
+          );
     }
-    data +='Hello World!'
-  res.send(data)
+    else
+    {
+    htmlData += 'Hello World!'
+     res.send(htmlData)
+    }
 })
+app.get('/data', (req,res)=>{
+  var htmlData = "";
+  if(client.isConnected())
+  {
+      collection.findOne(
+          {},
+          { sort: { _id: -1 } },
+          (err, data) => {
+            res.type('json');
+              res.send(data);
+          },
+        );
+  }
+  else
+  {
+  htmlData += 'Hello World!'
+   res.send(htmlData)
+  }
+});
 app.post('/data',(req,res)=>{
 
     collection.insertOne(req.body);
