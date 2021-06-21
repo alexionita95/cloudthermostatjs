@@ -8,13 +8,13 @@
 <body style="background-color:#333333; color:#ffffff">
 
   <div>
-<table border="1" style="text-align: left; vertical-align:middle; width: 500px;">
-<tr><td colspan="2" style="text-align: center;"><h2>Smart Thermostat App</h2></td></tr>
-<tr><td style="text-align: right; width: 25px;"><img src = 'img/temperature.png' width="32" title="Temperature"/> </td><td><p><span id='temperature'><%= temperature %></span>&deg;C</p></td></tr>
-<tr><td  style="text-align: right;"><img src = 'img/humidity.png' width="32" title="Humidity"/> </td><td><p><span id='humidity'><%= humidity %></span>%</p></td></tr>
-<tr><td  style="text-align: right;"> <img src = 'img/pressure.png' width="32" title="Pressure"/> </td><td><p><span id='pressure'><%= pressure %></span>hPa</p></td></tr>
-<tr><td  style="text-align: right;"><img src = 'img/altitude.png' width="32" title="Aprox. Altitude"/></td><td><p> <span id='altitude'><%= altitude %></span></p></td></tr>
-<tr><td colspan="2" style="text-align:center; font-size: 12px; color: #ccc;"><p>Last update: <span id='timestamp'><%= timestamp %></span></p></td></tr>
+<table border="0" style="text-align: left; vertical-align:middle; width: 500px; border:1px solid white;">
+<tr><td colspan="6" style="text-align: center;"><h2>Smart Thermostat App</h2></td></tr>
+<tr><td colspan="6" style="text-align: center;"><span id='temperature' style="font-size:150px;"><%= temperature %></span><span style="vertical-align:top; font-size: 20px; position: relative; top:10px">&deg;C</span></td></tr>
+<td  style="text-align: right;"><img src = 'img/humidity.png' width="32" title="Humidity"/> </td><td><p><span id='humidity' style="font-size: 20px;"><%= humidity %></span>%</p></td>
+<td  style="text-align: right;"> <img src = 'img/pressure.png' width="32" title="Pressure"/> </td><td><p><span id='pressure' style="font-size: 20px;"><%= pressure %></span>hPa</p></td>
+<td  style="text-align: right;"><img src = 'img/altitude.png' width="32" title="Aprox. Altitude"/></td><td><p> <span id='altitude' style="font-size: 20px;"><%= altitude %></span></p></td>
+<tr><td colspan="3">Device state: <span id="online"></span></td><td colspan="3" style="text-align:right; vertical-align: bottom; font-size: 12px; color: #ccc;">Last update: <span id='timestamp'><%= timestamp %></span></td></tr>
 </table>
   </div>
   

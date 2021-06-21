@@ -9,6 +9,15 @@ setInterval(() => {
           $('#pressure').html(data.pressure);
           $('#altitude').html(data.altitude);
           $('#timestamp').html(data.timestamp);
+          if(data.online === true) {
+              $("#online").css({color: "lime"});
+              $("#online").html("Online");
+          }
+          else
+          {
+            $("#online").css({color: "red"});
+            $("#online").html("Offline");
+          }
         }
       });
 }, (1000));

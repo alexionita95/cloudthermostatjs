@@ -20,13 +20,13 @@ function timeConverter(t) {
   var year = a.getFullYear();
   var month = months[a.getMonth()];
   var date = a.getDate();
-  var hour = a.getHours();
-  var min = a.getMinutes();
-  var sec = a.getSeconds();
+  var hour =a.getHours() <=9?'0'+ a.getHours():a.getHours();
+  var min = a.getMinutes() <=9?'0'+ a.getMinutes():a.getMinutes();
+  var sec = a.getSeconds() <=9?'0'+ a.getSeconds():a.getSeconds();
   if (a.setHours(0,0,0,0) == today.setHours(0,0,0,0))
-      return 'today, ' + hour + ':' + min + ':' + sec;
+      return 'Today, ' + hour + ':' + min + ':' + sec;
   else if (a.setHours(0,0,0,0) == yesterday.setHours(0,0,0,0))
-      return 'yesterday, ' + hour + ':' + min + ':' + sec;
+      return 'Yesterday, ' + hour + ':' + min + ':' + sec;
   else if (year == today.getFullYear())
       return date + ' ' + month + ', ' + hour + ':' + min + ':' + sec;
   else
@@ -42,7 +42,17 @@ app.get('/', (req, res) => {
             { sort: { _id: -1 } },
             (err, data) => {
                 var pageData = data;
+                console.log(Date.now() - data.timestamp)
+                if(Date.now() - data.timestamp > 30000)
+                {
+                  pageData.online = false;
+                }
+                else
+                {
+                  pageData.online=true;
+                }
                 pageData.timestamp = timeConverter(data.timestamp);
+                pageData.temperature = parseFloat(data.temperature).toFixed(1);
                 res.render("index",pageData);
                console.log(data);
             },
@@ -64,7 +74,17 @@ app.get('/data', (req,res)=>{
           (err, data) => {
             res.type('json');
             var pageData = data;
+            if(Date.now() - data.timestamp > 30000)
+                {
+                  pageData.online = false;
+                }
+                else
+                {
+                  pageData.online=true;
+                }
                 pageData.timestamp = timeConverter(data.timestamp);
+                pageData.temperature = parseFloat(data.temperature).toFixed(1);
+                
               res.send(pageData);
           },
         );
