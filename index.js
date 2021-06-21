@@ -1,5 +1,14 @@
 const express = require('express')
+var bodyParser = require('body-parser')
+ 
+ 
 const app = express()
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }))
+ 
+// parse application/json
+app.use(bodyParser.json())
 const port =process.env.PORT || 3000
 var collection;
 app.get('/', (req, res) => {
@@ -7,13 +16,6 @@ app.get('/', (req, res) => {
     if(client.isConnected())
     {
         data+="Connected to db!<br>"
-        var data = new Object();
-        data.timstamp =0;
-        data.temperature = 25.0;
-        data.humidity = 50.5;
-        data.pressure = 990;
-        data.altitude = 175;
-        collection.insertOne(data);
     }
     data +='Hello World!'
   res.send(data)
@@ -22,7 +24,9 @@ app.post('/data',(req,res)=>{
 
     collection.insertOne(req.body);
     var data = req.body;
-    data.timstamp = Date.now();
+    
+    data.timestamp = Date.now();
+    console.log(data);
     res.send(data);
     console.log("Data received from device");
 
