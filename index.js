@@ -3,6 +3,7 @@ const express = require('express')
  
 const app = express()
 app.set('view engine', 'ejs');
+app.use( express.static( "views" ) );
 const port =process.env.PORT || 3000
 var collection;
 
@@ -58,7 +59,9 @@ app.get('/data', (req,res)=>{
           { sort: { _id: -1 } },
           (err, data) => {
             res.type('json');
-              res.send(data);
+            var pageData = data;
+                pageData.timestamp = timeConverter(data.timestamp);
+              res.send(pageData);
           },
         );
   }

@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Smart Thermostat App</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/script.js"></script>
 </head>
-<body>
+<body style="background-color:#333333; color:#ffffff">
 
   <div>
-    <h2>Device Data</h2>
-    <p>Temperature: <%= temperature %>&deg;C</p>
-    <p>Humidity: <%= humidity %>%</p>
-    <p>Pressure: <%= pressure %>hPa</p>
-    <p>Aprox. Altitude: <%= altitude %>m</p>
-    <p>Last update: <%= timestamp %></p>
+<table border="1" style="text-align: left; vertical-align:middle; width: 500px;">
+<tr><td colspan="2" style="text-align: center;"><h2>Smart Thermostat App</h2></td></tr>
+<tr><td style="text-align: right; width: 25px;"><img src = 'img/temperature.png' width="32" title="Temperature"/> </td><td><p><span id='temperature'><%= temperature %></span>&deg;C</p></td></tr>
+<tr><td  style="text-align: right;"><img src = 'img/humidity.png' width="32" title="Humidity"/> </td><td><p><span id='humidity'><%= humidity %></span>%</p></td></tr>
+<tr><td  style="text-align: right;"> <img src = 'img/pressure.png' width="32" title="Pressure"/> </td><td><p><span id='pressure'><%= pressure %></span>hPa</p></td></tr>
+<tr><td  style="text-align: right;"><img src = 'img/altitude.png' width="32" title="Aprox. Altitude"/></td><td><p> <span id='altitude'><%= altitude %></span></p></td></tr>
+<tr><td colspan="2" style="text-align:center; font-size: 12px; color: #ccc;"><p>Last update: <span id='timestamp'><%= timestamp %></span></p></td></tr>
+</table>
   </div>
+  
 
 </body>
 </html>
