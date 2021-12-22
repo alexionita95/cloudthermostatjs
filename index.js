@@ -84,6 +84,7 @@ app.get('/data', (req,res)=>{
                 }
                 pageData.rawTimestamp = data.timestamp;
                 pageData.timestamp = timeConverter(data.timestamp);
+                pageData.rawTemperature = parseFloat(data.temperature);
                 pageData.temperature = parseFloat(data.temperature).toFixed(1);
                 
               res.send(pageData);
