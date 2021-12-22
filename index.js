@@ -74,7 +74,7 @@ app.get('/data', (req,res)=>{
           (err, data) => {
             res.type('json');
             var pageData = data;
-            if(Date.now() - data.timestamp > 30000)
+            if(Date.now() - data.timestamp > 35000)
                 {
                   pageData.online = false;
                 }
